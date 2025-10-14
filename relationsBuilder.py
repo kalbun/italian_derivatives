@@ -1,5 +1,5 @@
 """
-This script builds a small sqlite database of morphological derived forms
+This script builds an sqlite database of morphological derived forms
 for Italian nouns using multiwordnet + a Mistral-based LLM assistant.
 
 Changes made:
