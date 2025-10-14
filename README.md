@@ -32,3 +32,12 @@ The table definitions here below illustrate the contents and the relationship.
 # The Paisà corpus
 You can download the Paisà corpus from this page: https://clarin.eurac.edu/repository/xmlui/handle/20.500.12124/3
 For this work, I downloaded the version lemma-WITHOUTnumberssymbols-frequencies-paisa.txt.gz and applied a further filtering, removing words with frequency below 5 or lenght below 3. The resulting file of circa 105000 lemmas is found in the repo as lemma-sorted-frequencies-paisa.txt.zip.
+
+# Rebuild the files
+If you want to rebuild the database from scratch:
+
+1) extract lemma-sorted-frequencies-paisa.txt.zip in the same directory of relationBuilder.py
+2) invoke:
+       python relationBuilder.py
+   There are some command line parameters that allow to change the script's behaviour, but the defaults will work fine.
+   
