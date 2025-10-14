@@ -7,7 +7,7 @@ To build this database I executed the following operations:
 
 1) extraction of nouns (POS = 'n') from MWN, removing words with symbols, numbers, spaces or shorter than two characters.
 2) creation of derivative adjectives, verbs, and adverbs by invoking an LLM (Mistral Large)
-3) filtering of LLM results using the Paisà Italian Corpus, removing hallucinated terms.
+3) filtering LLM results using a customised version of the Paisà Italian Corpus with only words with minimum frequency 5 and minimum lenght 3.
 
 Note that the filter removes invented or misspelled terms, but not morphological mistakes. For example, Mistral returned "gattino" as a derived adjective of "gatto". The word is in Paisà corpus, so it was accepted.
 
@@ -29,5 +29,6 @@ The table definitions here below illustrate the contents and the relationship.
       FOREIGN KEY (lemma_id) REFERENCES words(id)
     );
 
-
-
+# The Paisà corpus
+You can download the Paisà corpus from this page: https://clarin.eurac.edu/repository/xmlui/handle/20.500.12124/3
+For this work, I downloaded the version lemma-WITHOUTnumberssymbols-frequencies-paisa.txt.gz and applied a further filtering, removing words with frequency below 5 or lenght below 3. The resulting file of circa 105000 lemmas is found in the repo as lemma-sorted-frequencies-paisa.txt.zip.
