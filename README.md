@@ -1,2 +1,33 @@
 # italian_derivatives
 A database of Italian nouns and related adjectives, verbs and adverbs.
+
+This database was created because I did not find a dataset where Italian nouns are directly linked to morphologically derived terms (like "felice" from "felicità").
+The Italian version of MultiWordNet has quite a considerable number of terms, but unlike English it lacks the derivatives database.
+To build this database I executed the following operations:
+
+1) extraction of nouns (POS = 'n') from MWN, removing words with symbols, numbers, spaces or shorter than two characters.
+2) creation of derivative adjectives, verbs, and adverbs by invoking an LLM (Mistral Large)
+3) filtering of LLM results using the Paisà Italian Corpus, removing hallucinated terms.
+
+Note that the filter removes invented or misspelled terms, but not morphological mistakes. For example, Mistral returned "gattino" as a derived adjective of "gatto". The word is in Paisà corpus, so it was accepted.
+
+The database contains 26402 nouns and only 18016 related terms because only a small percentage of nouns leads to derived terms.
+The table definitions here below illustrate the contents and the relationship.
+
+    CREATE TABLE IF NOT EXISTS words (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        lemma TEXT NOT NULL UNIQUE,
+        pos TEXT NOT NULL  # always 'n'
+    );
+
+    CREATE TABLE IF NOT EXISTS derived_forms (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      lemma_id INTEGER NOT NULL,
+      form TEXT NOT NULL,
+      pos TEXT NOT NULL,      # can be 'a', 'v' or 'r'
+      relation_type TEXT NOT NULL,  # always 'morphological'. Used for future expansions.
+      FOREIGN KEY (lemma_id) REFERENCES words(id)
+    );
+
+
+
