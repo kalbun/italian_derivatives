@@ -1,5 +1,5 @@
 """
-This script builds an sqlite database of morphological derived forms
+This script builds a small sqlite database of morphological derived forms
 for Italian nouns using multiwordnet + a Mistral-based LLM assistant.
 
 Changes made:
@@ -206,9 +206,12 @@ def main(start: int = 0, chunk_size: int = 5) -> None:
 
     conn.close()
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Build relations_italian.db3 with derived forms')
     parser.add_argument('--start', type=int, default=0, help='initial lemma index (default: 0)')
     parser.add_argument('--chunk-size', type=int, default=5, help='number of lemmas per LLM call (default: 5)')
     args = parser.parse_args()
     main(start=args.start, chunk_size=args.chunk_size)
+
+
